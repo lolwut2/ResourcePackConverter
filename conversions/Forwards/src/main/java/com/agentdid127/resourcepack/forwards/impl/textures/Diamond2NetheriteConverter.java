@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Diamond2NetheriteConverter extends Converter
 {
@@ -44,16 +47,27 @@ public class Diamond2NetheriteConverter extends Converter
                 rename(dPath);
             }
         }
+
+        Set<Path> layers = getLayerPaths(pack);
+        for (Path layer : layers)
+        {
+            if (!layer.toFile().exists())
+            {
+                continue;
+            }
+
+            rename(layer);
+        }
     }
 
-    public void rename(Path diamondArmorPath) throws IOException
+    public void rename(Path diamondPath) throws IOException
     {
-        if (diamondArmorPath.toFile().exists())
+        if (diamondPath.toFile().exists())
         {
-            Path netheriteArmorPath = diamondArmorPath.resolveSibling(
-                    diamondArmorPath.getFileName().toString().replace("diamond_", "netherite_"));
+            Path netheriteArmorPath = diamondPath.resolveSibling(
+                    diamondPath.getFileName().toString().replace("diamond_", "netherite_"));
 
-            Files.move(diamondArmorPath, netheriteArmorPath);
+            Files.move(diamondPath, netheriteArmorPath);
         }
     }
 
@@ -61,5 +75,19 @@ public class Diamond2NetheriteConverter extends Converter
     {
         return pack.getWorkingPath()
             .resolve(("assets/minecraft/textures/" + items + "/diamond_" + armor + ".png").replace("/", File.separator));
+    }
+
+    public Set<Path> getLayerPaths(Pack pack)
+    {
+        Set<Path> paths = new HashSet<>(2);
+        for (int i = 1; i <= 2; i++)
+        {
+            Path path = pack.getWorkingPath()
+                    .resolve(("assets/minecraft/textures/models/armor/diamond_layer_" + i + ".png")
+                            .replace("/", File.separator));
+            paths.add(path);
+        }
+
+        return paths;
     }
 }
