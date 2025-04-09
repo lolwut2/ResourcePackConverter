@@ -176,6 +176,23 @@ public class NameConverter extends Converter {
                     renameAll(itemMapping, ".png.mcmeta", itemPath);
                 }
 
+                Path godApplePath = itemPath.resolve("apple_golden.png");
+                if (godApplePath.toFile().exists())
+                {
+                    Path newGodApplePath = itemPath.resolve("golden_apple.png");
+                    Files.move(godApplePath, newGodApplePath);
+                }
+
+                if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.11"))
+                {
+                    Path totemPath = itemPath.resolve("totem.png");
+                    if (totemPath.toFile().exists())
+                    {
+                        Path newTotemPath = itemPath.resolve("totem_of_undying.png");
+                        Files.move(totemPath, newTotemPath);
+                    }
+                }
+
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
                     renameAll(newItemMapping, ".png", itemPath);
                     renameAll(newItemMapping, ".png.mcmeta", itemPath);

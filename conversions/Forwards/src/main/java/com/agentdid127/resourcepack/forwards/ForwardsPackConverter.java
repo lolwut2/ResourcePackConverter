@@ -82,6 +82,11 @@ public class ForwardsPackConverter extends PackConverter {
                 && protocolTo >= Util.getVersionProtocol(gson, "1.15"))
             this.registerConverter(new EnchantConverter(this));
 
+        if (protocolTo >= Util.getVersionProtocol(gson, "1.16"))
+        {
+            this.registerConverter(new Diamond2NetheriteConverter(this, protocolTo));
+        }
+
         if (protocolFrom < Util.getVersionProtocol(gson, "1.18")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.18"))
             this.registerConverter(new ParticleConverter(this));
