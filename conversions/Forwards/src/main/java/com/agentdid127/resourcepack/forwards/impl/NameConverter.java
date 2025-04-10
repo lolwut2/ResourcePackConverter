@@ -187,6 +187,7 @@ public class NameConverter extends Converter {
                 {
                     Path totemPath = itemPath.resolve("totem.png");
                     Path totemMeta = itemPath.resolve("totem.png.mcmeta");
+                    Path totemJson = itemPath.resolve("totem.png.json");
                     if (totemPath.toFile().exists())
                     {
                         Path newTotemPath = itemPath.resolve("totem_of_undying.png");
@@ -271,6 +272,16 @@ public class NameConverter extends Converter {
                 if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
                         && from < Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                     renameAll(blockMapping19, ".png", blockPath);
+                }
+
+                Path cPath = entityPath.resolve("endercrystal/endercrystal.png"
+                        .replace("/", File.separator));
+
+                if (cPath.toFile().exists())
+                {
+                    Path newCPath = entityPath.resolve("endercrystal/end_crystal.png"
+                            .replace("/", File.separator));
+                    Files.move(cPath, newCPath);
                 }
 
                 // 1.13 End Crystals

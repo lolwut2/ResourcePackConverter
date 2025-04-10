@@ -1,6 +1,5 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
-import com.agentdid127.resourcepack.forwards.impl.NameConverter;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Diamond2NetheriteConverter extends Converter
@@ -74,7 +72,7 @@ public class Diamond2NetheriteConverter extends Converter
     public Path getDiamondPath(Pack pack, String items, String armor)
     {
         return pack.getWorkingPath()
-            .resolve(("assets/minecraft/textures/" + items + "/diamond_" + armor + ".png").replace("/", File.separator));
+                .resolve(("assets/minecraft/textures/" + items + "/diamond_" + armor + ".png").replace("/", File.separator));
     }
 
     public Set<Path> getLayerPaths(Pack pack)
