@@ -186,9 +186,16 @@ public class NameConverter extends Converter {
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.11"))
                 {
                     Path totemPath = itemPath.resolve("totem.png");
+                    Path totemMeta = itemPath.resolve("totem.png.mcmeta");
                     if (totemPath.toFile().exists())
                     {
                         Path newTotemPath = itemPath.resolve("totem_of_undying.png");
+                        if (totemMeta.toFile().exists())
+                        {
+                            Path newTotemMeta = itemPath.resolve("totem_of_undying.png.mcmeta");
+                            Files.move(totemMeta, newTotemMeta);
+                        }
+
                         Files.move(totemPath, newTotemPath);
                     }
                 }
